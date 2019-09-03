@@ -1,8 +1,8 @@
 # ASP.NET
-
 # Build and test ASP.NET projects.
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
 
 trigger:
 - master
@@ -24,6 +24,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    projects: 'C:\Users\13054\source\repos\EligibilityProject\ValidationProject\ValidationProject.csproj'
 
 - task: VSBuild@1
   inputs:
@@ -37,3 +38,14 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 - task: PublishBuildArtifacts@1
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Validation-Project-dannyrodriguez - Azure'
+    appType: 'webApp'
+    WebAppName: 'Validation-Project-dannyrodriguez'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'Senior-Project'
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
