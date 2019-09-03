@@ -21,11 +21,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'C:\Users\13054\source\repos\EligibilityProject\ValidationProject\ValidationProject.csproj'
-
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -37,15 +32,3 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: PublishBuildArtifacts@1
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Validation-Project-dannyrodriguez - Azure'
-    appType: 'webApp'
-    WebAppName: 'Validation-Project-dannyrodriguez'
-    deployToSlotOrASE: true
-    ResourceGroupName: 'Senior-Project'
-    SlotName: 'production'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
